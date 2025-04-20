@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for a Loan - Finn Bank</title>
+    <!-- Google Fonts - Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        nav {
+            background-color: transparent;
+            padding: 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+        nav ul li {
+            margin: 0 0 0 1.5rem;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 3px;
+        }
+        nav ul li a:hover {
+            color: #f0f4f8;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #f0f4f8;
+            transition: width 0.3s ease;
+        }
+        nav ul li a.active {
+            color: #f0f4f8;
+        }
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        .page-title {
+            background-color: #f0f4f8;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .page-title h1 {
+            font-size: 2.5rem;
+            color: #003366;
+            margin: 0;
+            font-weight: 600;
+        }
+        .main-content {
+            padding: 4rem 0;
+        }
+        footer {
+            background-color: #003366;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-section ul li a {
+            color: #f0f4f8;
+            text-decoration: none;
+            font-weight: 400;
+        }
+        .footer-section ul li a:hover {
+            text-decoration: underline;
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-weight: 400;
+        }
+        .application-options {
+            padding: 2rem 0;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: stretch;
+        }
+        .option-box {
+            flex: 1;
+            padding: 2rem;
+            border: 2px dashed #003366;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: transparent;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .option-box:not(:first-child):not(.no-border) {
+            padding-top: calc(2rem + 32px);
+            height: 600px;
+        }
+        .option-box:not(.no-border):hover {
+            border-style: solid;
+            background-color: rgba(0, 51, 102, 0.02);
+            transform: scale(1.02);
+        }
+        .option-box.selected {
+            border-style: solid;
+            background-color: rgba(0, 51, 102, 0.05);
+            transform: scale(1.02);
+        }
+        .option-box.selected .option-title {
+            color: #002244;
+        }
+        .option-box.no-border {
+            border: none;
+            max-width: 100px;
+            height: auto;
+            min-height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #666;
+            font-weight: 500;
+            padding: 2rem 12px;
+        }
+        .recommended-tag {
+            background-color: #003366;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            width: fit-content;
+        }
+        .option-title {
+            font-size: 1.5rem;
+            color: #003366;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .option-subtitle {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .option-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option-features li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .option-features li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #003366;
+        }
+        .sections-wrapper > section:not(:first-child) {
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .sections-wrapper > section:not(:first-child).visible {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+        .auth-section {
+            padding: 4rem 0;
+            margin-top: 2rem;
+        }
+        .auth-container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .auth-title {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .auth-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .auth-option {
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: white;
+            width: 100%;
+        }
+        .auth-option:hover {
+            border-color: #003366;
+            background-color: rgba(0, 51, 102, 0.02);
+        }
+        .auth-option img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+        .auth-option-text {
+            font-weight: 500;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .auth-divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+        .auth-divider::before {
+            left: 0;
+        }
+        .auth-divider::after {
+            right: 0;
+        }
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .auth-label {
+            color: #333;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .auth-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        .auth-input:focus {
+            outline: none;
+            border-color: #003366;
+        }
+        .auth-button {
+            width: 100%;
+            background-color: #003366;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .auth-button:hover {
+            background-color: #002244;
+        }
+        .password-criteria {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+        }
+        .criteria-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+        .criteria-item.met {
+            color: #00a651;
+        }
+        .criteria-icon {
+            width: 14px;
+            height: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 10px;
+        }
+        .criteria-item.met .criteria-icon {
+            background-color: #00a651;
+            color: white;
+        }
+        .criteria-item:not(.met) .criteria-icon {
+            border: 1px solid #666;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <a href="index.html" class="logo">Finn Bank</a>
+                <nav>
+                    <ul>
+                        <li><a href="apply.html" class="active">Apply</a></li>
+                        <li><a href="explore.html">Explore</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-title">
+        <div class="container">
+            <h1>Apply for a Loan</h1>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="sections-wrapper">
+                <section class="application-options">
+                    <h2 class="auth-title">Choose how you want to start</h2>
+                    <div class="options-container">
+                        
+                        <div class="option-box" onclick="selectOption(this, 'ai-assisted')">
+                            <span class="recommended-tag">RECOMMENDED</span>
+                            <h2 class="option-title">AI-assisted loan application process</h2>
+                            <p class="option-subtitle">Our AI expert Finn can help you complete your application and answer questions in the process!</p>
+                            <ul class="option-features">
+                                <li>Complete your loan application in half the time</li>
+                                <li>Finn will review and help fix your forms before submission</li>
+                                <li>Receive updates on your application status with suggestions on wait times and what to expect</li>
+                            </ul>
+                        </div>
+
+                        <div class="option-box no-border">
+                            OR
+                        </div>
+
+                        <div class="option-box" onclick="selectOption(this, 'manual')">
+                            <h2 class="option-title">Manual entry</h2>
+                            <p class="option-subtitle">Complete your loan application form independently</p>
+                            <ul class="option-features">
+                                <li>Complete your loan application in half the time</li>
+                                <li>Carefully review which financial and personal details you're providing</li>
+                                <li>Complete at your own comfortable pace</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="auth-section" class="auth-section">
+                    <div class="auth-container">
+                        <h2 class="auth-title">Choose how to continue *</h2>
+                        <p><span>*Creating an account is required to start the application process.</span></p>
+                        <div class="auth-options">
+                            <button class="auth-option">
+                                <img src="Ggl_logo.png" alt="Google">
+                                <span class="auth-option-text">Continue with Google</span>
+                            </button>
+                            <button class="auth-option">
+                                <img src="Emirate.jpeg" alt="Emirates NBD">
+                                <span class="auth-option-text">Continue with Emirates NBD</span>
+                            </button>
+                            <button class="auth-option">
+                                <img src="ADCB_logo.png" alt="ADCB">
+                                <span class="auth-option-text">Continue with ADCB</span>
+                            </button>
+                            <button class="auth-option">
+                                <img src="FAB_logo.png" alt="First Abu Dhabi Bank">
+                                <span class="auth-option-text">Continue with First Abu Dhabi Bank</span>
+                            </button>
+                        </div>
+
+                        <div class="auth-divider">or</div>
+
+                        <form class="auth-form">
+                            <div class="form-group">
+                                <label class="auth-label" for="fullname">Full name</label>
+                                <input type="text" id="fullname" class="auth-input" placeholder="Angelina Jolie" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="auth-label" for="email">Email address</label>
+                                <input type="email" id="email" class="auth-input" placeholder="angelina.jolie@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="auth-label" for="password">Password</label>
+                                <input type="password" id="password" class="auth-input" placeholder="Create a secure password" required>
+                                <div class="password-criteria">
+                                    <div class="criteria-item" data-criteria="length">
+                                        <span class="criteria-icon">✓</span>
+                                        <span>At least 8 characters</span>
+                                    </div>
+                                    <div class="criteria-item" data-criteria="uppercase">
+                                        <span class="criteria-icon">✓</span>
+                                        <span>At least 1 uppercase letter</span>
+                                    </div>
+                                    <div class="criteria-item" data-criteria="lowercase">
+                                        <span class="criteria-icon">✓</span>
+                                        <span>At least 1 lowercase letter</span>
+                                    </div>
+                                    <div class="criteria-item" data-criteria="number">
+                                        <span class="criteria-icon">✓</span>
+                                        <span>At least 1 number</span>
+                                    </div>
+                                    <div class="criteria-item" data-criteria="special">
+                                        <span class="criteria-icon">✓</span>
+                                        <span>At least 1 special character</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="auth-button">Continue</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="apply.html">Apply</a></li>
+                        <li><a href="explore.html">Explore</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Personal Banking</a></li>
+                        <li><a href="#">Business Banking</a></li>
+                        <li><a href="#">Investment Services</a></li>
+                        <li><a href="#">Loans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>123 Banking Street</li>
+                        <li>Finance City, FC 12345</li>
+                        <li>Phone: (123) 456-7890</li>
+                        <li>Email: info@finnbank.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Finn Bank. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Application option selection
+        function selectOption(element, type) {
+            // Remove selected class from all options
+            document.querySelectorAll('.option-box').forEach(box => {
+                if (!box.classList.contains('no-border')) {
+                    box.classList.remove('selected');
+                }
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+
+            // Show auth section
+            const authSection = document.getElementById('auth-section');
+            authSection.classList.add('visible');
+            
+            // Smooth scroll to auth section
+            setTimeout(() => {
+                authSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        // Password validation
+        document.getElementById('password').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const criteria = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+            };
+
+            // Update criteria status
+            Object.keys(criteria).forEach(key => {
+                const criteriaElement = document.querySelector(`[data-criteria="${key}"]`);
+                if (criteria[key]) {
+                    criteriaElement.classList.add('met');
+                } else {
+                    criteriaElement.classList.remove('met');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
